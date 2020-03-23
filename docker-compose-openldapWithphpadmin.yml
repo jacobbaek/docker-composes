@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  openldap:
+    image: osixia/openldap
+    container_name: openldap
+    volumes:
+      - ./data/certificates:/container/service/slapd/assets/certs
+      - ./data/database:/var/lib/ldap
+      - ./data/config:/etc/ldap/slapd.d
+    ports:
+      - "389:389"
+      # - "636:636" ## for ssl
+    environment:
+      LDAP_ORGANISATION: "JacobBaek"
+      LDAP_DOMAIN: "openlabs"
+      LDAP_ADMIN_PASSWORD: "admin"
+      LDAP_CONFIG_PASSWORD: "config"
+      LDAP_BASE_DN: "dc=openlabs"
+      LDAP_TLS: "false"
+      # LDAP_BASE_DN: ""
+      # LDAP_TLS_ENFORCE: "false"
+    hostname: "openldap.jacobbaek"
+
+  phpadmin:
+    image: osixia/phpldapadmin
+    container_name: phpldapadmin
+    environment:
+      PHPLDAPADMIN_LDAP_HOSTS: "openldap"
+      PHPLDAPADMIN_HTTPS: "false"
+    ports:
+      - "80:80"
+    hostname: "openldap-php.jacobbaek"
+    depends_on:
+      - openldap
+
+## https://scytalelabs.com/setup-and-configure-openldap-using-docker-image-on-ubuntu-16-04/
+## https://gist.github.com/thomasdarimont/d22a616a74b45964106461efb948df9c
+## https://medium.com/@hmj2088/ldap-dc771e2704a9
