@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+# docker-compose collection
+=======
 # How to use docker-composes with openldap and phpadmin
 
 ```
@@ -10,3 +13,4 @@ Access by below account.
 ```
 cn=admin,dc=org(dc name)
 ```
+>>>>>>> 7c6c7425489a656b86551fcf34d0489e67b8f601
