@@ -6,7 +6,6 @@ services:
       dockerfile: Dockerfile.jenkins
     image: jenkins/jenkins:lts
     container_name: jenkins
-    restart: always
     user: root
     volumes:
       - ./jenkins/data:/var/jenkins_home
@@ -19,9 +18,12 @@ services:
       TZ: "Asia/Seoul"
       JENKINS_ADMIN_ID: "admin"
       JENKINS_ADMIN_PASSWORD: "password"
-  selenium-agent:
+  jenkins-selenium:
+    depends_on:
+      - jenkins
     build:
       context: .
-      dockerfile: Dockerfile.selenium-agent
+      dockerfile: Dockerfile.jenkins-selenium
     container_name: jenkins-selenium
     user: root
+    #entrypoint: ["bash", "wget http://jenkins:8080/jnlpJars/agent.jar /home/jenkins-selenium/agent.jar", "&&", "java", "-jar /home/jenkins-selenium/agent.jar -jnlpUrl", "http://127.0.0.1:8888/computer/selenium-agent/jenkins-agent.jnlp -workDir", "/home/jenkins-selenium"]

@@ -1,0 +1,8 @@
+FROM selenium/standalone-chrome
+
+USER root
+
+RUN apt-get update && apt-get install -y python3-pip && apt-get install -y openjdk-11-jre
+RUN pip3 install pytest && pip3 install selenium
+
+RUN mkdir -p /home/jenkins-selenium
