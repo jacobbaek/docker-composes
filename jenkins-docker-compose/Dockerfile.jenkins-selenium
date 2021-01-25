@@ -2,7 +2,8 @@ FROM selenium/standalone-chrome
 
 USER root
 
-RUN apt-get update && apt-get install -y python3-pip && apt-get install -y openjdk-11-jre
+RUN apt-get update && apt-get install -y python3-pip git && apt-get install -y openjdk-11-jre
 RUN pip3 install pytest && pip3 install selenium
+#RUN wget https://chromedriver.storage.googleapis.com/87.0.4280.88/chromedriver_linux64.zip && unzip chromedriver_linux64.zip && rm -f chromedriver_linux64.zip
 
 RUN mkdir -p /home/jenkins-selenium
