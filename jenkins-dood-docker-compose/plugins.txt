@@ -1,0 +1,6 @@
+git:latest
+github-branch-source:latest
+ldap:latest
+configuration-as-code:latest
+pipeline-model-definition:latest
+docker-workflow:latest

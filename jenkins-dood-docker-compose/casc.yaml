@@ -1,0 +1,19 @@
+jenkins:
+  nodes:
+  - permanent:
+      labelString: "selenium-agent"
+      launcher:
+        jnlp:
+          workDirSettings:
+            disabled: false
+            failIfWorkDirIsMissing: false
+            internalDir: "remoting"
+      name: "selenium-agent"
+      remoteFS: "/home/jenkins-selenium"
+      retentionStrategy: "always"
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+      - id: ${JENKINS_ADMIN_ID}
+        password: ${JENKINS_ADMIN_PASSWORD}
