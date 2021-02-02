@@ -18,3 +18,8 @@ services:
       TZ: "Asia/Seoul"
       JENKINS_ADMIN_ID: "admin"
       JENKINS_ADMIN_PASSWORD: "password"
+  selenium-wd:
+    image: selenium/standalone-chrome:latest
+    container_name: selenium-wd
+    ports:
+      - 4444:4444
