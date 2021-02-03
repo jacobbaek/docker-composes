@@ -1,0 +1,22 @@
+pipeline {
+    agent {
+        docker {
+            image "python:slim"
+            args "--net=container:jenkins"  # <= this is able to use call the url "selenium-wd"
+        }
+    }
+
+    stages {
+        stage('ready to run selenium script with remote webdriver') {
+            steps {
+                sh 'pip3 install pytest selenium'
+                echo 'ready'
+            }
+        }
+        stage('run selenium script with remote webdriver') {
+            steps {
+                sh 'python3 test.py'
+            }
+        }
+    }
+}
