@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    user: "472"
+    privileged: true
+    ports:
+      - 3000:3000
+    environment:
+      GF_INSTALL_PLUGINS: "grafana-clock-panel,grafana-simple-json-datasource"
+      GF_SECURITY_ADMIN_PASSWORD: "password"
+    volumes:
+      - ./grafana_data:/var/lib/grafana
+      - ./grafana_config/grafana.ini:/etc/grafana/grafana.ini
