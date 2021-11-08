@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  redis:
+    image: redis:6.2.6
+    command: "redis-server --requirepass password --port 6379"
+    container_name: redis
+    hostname: redis-server
+    labels:
+    - "app=redis"
+    ports:
+    - 6379:6379
+    volumes:
+    - "./redis.conf:/usr/local/etc/redis/redis.conf"
+    #- "./data:/data"
+    #- "./users.acl:/etc/redis/users.acl"
