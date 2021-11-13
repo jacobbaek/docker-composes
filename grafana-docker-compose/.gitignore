@@ -1,3 +1,4 @@
 data/*
 conf/datasources.yaml
+conf/dashboards.yaml
 conf/grafana.ini
