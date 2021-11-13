@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.8'
 
 services:
   grafana:
@@ -13,6 +13,6 @@ services:
       GF_INSTALL_PLUGINS: "grafana-clock-panel,grafana-simple-json-datasource"
       GF_SECURITY_ADMIN_PASSWORD: "password"
     volumes:
-      - ./grafana_data:/var/lib/grafana
-      - ./grafana_config/grafana.ini:/etc/grafana/grafana.ini
-      - ./grafana_config/datasources.yaml:/etc/grafana/provisioning/datasources/default.yaml
+      - ./data:/var/lib/grafana
+      - ./conf/grafana.ini:/etc/grafana/grafana.ini
+      - ./conf/datasources.yaml:/etc/grafana/provisioning/datasources/default.yaml

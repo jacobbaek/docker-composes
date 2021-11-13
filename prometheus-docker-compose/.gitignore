@@ -1,1 +1,2 @@
-prometheus_data/data/*
+data/*
+conf/prometheus.yml

@@ -1,1 +1,3 @@
-grafana_data/*
+data/*
+conf/datasources.yaml
+conf/grafana.ini
