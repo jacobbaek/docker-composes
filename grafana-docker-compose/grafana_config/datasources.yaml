@@ -1,0 +1,20 @@
+# https://github.com/grafana/grafana/blob/main/devenv/datasources.yaml
+apiVersion: 1
+
+#deleteDatasources:
+#  - name: prometheus
+#  - name: loki
+
+datasources:
+  - name: prometheus
+    type: prometheus
+    access: proxy
+    url: http://localhost:9090
+    version: 1
+
+  # https://github.com/grafana/loki/blob/main/production/helm/loki-stack/templates/datasources.yaml
+  - name: loki
+    type: loki
+    access: proxy
+    url: http://localhost:9090
+    version: 1

@@ -1,0 +1,14 @@
+# https://github.com/grafana/loki/blob/main/production/docker-compose.yaml
+# https://github.com/grafana/loki/blob/main/production/docker/docker-compose-ha-memberlist.yaml
+version: "3.8"
+
+services:
+  loki:
+    image: grafana/loki:2.4.1
+    user: "root"
+    privileged: true
+    ports:
+    - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+    - "./conf/loki-config.yaml:/etc/loki/local-config.yaml"

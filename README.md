@@ -1,6 +1,9 @@
 # Docker-compose files
 Some of [service](https://github.com/jacobbaek/docker-composes#how-to-use) can deploy by these docker-compose.
 
+# Keep to know
+All these docker-compose yaml file has root privilege, it means you never use at the production.
+
 # How to use
 
 * create and start (or update)
@@ -24,3 +27,9 @@ Some of [service](https://github.com/jacobbaek/docker-composes#how-to-use) can d
 * nexus
 * openldap
 * gitlab
+* redis
+* rabbitmq
+* grafana
+* prometheus
+* nginx-proxy
+* loki

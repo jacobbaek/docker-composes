@@ -11,6 +11,6 @@ services:
     ports:
     - 6379:6379
     volumes:
-    - "./redis.conf:/usr/local/etc/redis/redis.conf"
+    - "./conf/redis.conf:/usr/local/etc/redis/redis.conf"
     #- "./data:/data"
     #- "./users.acl:/etc/redis/users.acl"
