@@ -1,3 +1,5 @@
+# https://github.com/grafana/grafana/blob/main/conf/defaults.ini
+
 ##################### Grafana Configuration Defaults #####################
 #
 # Do not modify this file in grafana installs

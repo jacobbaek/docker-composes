@@ -16,3 +16,4 @@ services:
       - ./data:/var/lib/grafana
       - ./conf/grafana.ini:/etc/grafana/grafana.ini
       - ./conf/datasources.yaml:/etc/grafana/provisioning/datasources/default.yaml
+      - ./conf/dashboards.yaml:/etc/grafana/provisioning/dashboards/default.yaml

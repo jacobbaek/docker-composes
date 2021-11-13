@@ -1,0 +1,4 @@
+# https://github.com/grafana/grafana/blob/main/conf/provisioning/dashboards/sample.yaml
+
+apiVersion: 1
+
