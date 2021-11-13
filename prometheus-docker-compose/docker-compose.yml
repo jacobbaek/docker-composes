@@ -14,6 +14,8 @@ services:
       - '--web.console.templates=/etc/prometheus/consoles'
       - '--storage.tsdb.retention.time=200h'
       - '--web.enable-lifecycle'
+      #- '--web.external-url=https://prometheus_domain_url/prom'
+      #- '--web.route-prefix=/prom'
     volumes:
       - ./conf:/etc/prometheus
       - ./data:/prometheus
