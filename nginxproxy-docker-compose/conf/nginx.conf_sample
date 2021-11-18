@@ -39,6 +39,13 @@ http {
 #            proxy_set_header   X-Forwarded-Proto "https";
 #        }
 
+#        location /blackbox/ {
+            rewrite ^/blackbox(/.*)$ $1 break;
+            proxy_pass         http://blackbox_exporter_ip_address:9115;
+            proxy_set_header   X-Real-IP $remote_addr;
+            proxy_redirect off;
+#
+
 #        location /prom/ {
 #            proxy_pass         http://prometheus_ip_address:9090;
 #            proxy_set_header   Host $host;
