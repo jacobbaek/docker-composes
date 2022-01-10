@@ -1,0 +1,53 @@
+server {
+    listen 80;
+    server_name localhost;
+
+    client_max_body_size 1G;
+    #access_log /var/log/openresty-access.log;
+    access_log stdout;
+    #error_log /var/log/openresty-error.log;
+    error_log stderr;
+
+
+    location ~ ^/luascript {
+        default_type 'text/plain';
+
+        set $path $host;
+        content_by_lua_block {
+            ngx.say('Hello,world!')
+            ngx.say(ngx.var.path)  
+            ngx.say(ngx.var.hostname)  
+        }
+    }
+
+    location = /jitcheck {
+        #default_type 'text/plain';
+
+        content_by_lua_block {
+            if jit then print'LuaJIT' end
+        }
+    }
+
+    location ~ ^/luajson {
+        default_type application/json;
+        content_by_lua_block {
+            -- global variable
+            cjson = require "cjson"
+            ngx.status = ngx.HTTP_OK
+            ngx.say(cjson.encode({ status = true}))
+            ngx.exit(ngx.HTTP_OK)
+        }
+    }
+
+    location ~ ^/luafile {
+        default_type text/html;
+        set $rurl $remote_addr;
+ 
+        content_by_lua_file 'lua_modules/test.lua';
+    }
+
+    location ~ / {
+        root /usr/local/openresty/nginx/html;
+        index  index.html index.htm;
+    }
+}
