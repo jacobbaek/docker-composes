@@ -22,17 +22,23 @@ services:
     ports:
       - 9090:9090
   node-exporter:
-    image: quay.io/prometheus/node-exporter:latest
+    image: quay.io/prometheus/node-exporter:v1.3.1
     container_name: node-exporter
-    command:
-      - '--path.rootfs=/host'
-    pid: host
+    user: "root"
+    privileged: true
     restart: unless-stopped
     volumes:
-      - '/:/host:ro,rslave'
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
     ports:
       - 9100:9100
-  alartmanager:
+  alertmanager:
     image: prom/alertmanager:v0.23.0
     container_name: alertmanager
     user: "root"
