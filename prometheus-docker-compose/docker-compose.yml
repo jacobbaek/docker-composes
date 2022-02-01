@@ -17,8 +17,8 @@ services:
       #- '--web.external-url=https://prometheus_domain_url/prom'
       #- '--web.route-prefix=/prom'
     volumes:
-      - ./conf:/etc/prometheus
-      - ./data:/prometheus
+      - ./prom-conf:/etc/prometheus
+      - ./prom-data:/prometheus
     ports:
       - 9090:9090
   node-exporter:
@@ -32,3 +32,16 @@ services:
       - '/:/host:ro,rslave'
     ports:
       - 9100:9100
+  alartmanager:
+    image: prom/alertmanager:v0.23.0
+    container_name: alertmanager
+    user: "root"
+    privileged: true
+    command:
+      - "--config.file=/etc/alertmanager/alertmanager.yml"
+      - "--storage.path=/alertmanager"
+    volumes:
+      - ./alert-conf/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - ./alert-data:/alertmanager
+    ports:
+      - 9093:9093

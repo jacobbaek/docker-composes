@@ -1,2 +1,4 @@
-data/*
-conf/prometheus.yml
+prom-data/*
+prom-conf/prometheus.yml
+alert-data/*
+alert-conf/alertmanager.yml
