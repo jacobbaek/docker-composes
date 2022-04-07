@@ -1,28 +1,47 @@
+version: "3.8"
+
 services:
   gitlab:
     container_name : gitlab
-    image: 'gitlab/gitlab-ce:13.6.1-ce.0'
+    image: 'gitlab/gitlab-ce:14.6.4-ce.0'
     restart: always
     hostname: 'gitlab-server'
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url 'https://gitlab.openlabs.io'
+        external_url 'https://gitlab.jacobbaek.com/'
         gitlab_rails['lfs_enabled'] = true
         gitlab_rails['gitlab_shell_ssh_port'] = 2222
         gitlab_rails['manage_backup_path'] = true
-        gitlab_rails['backup_keep_time'] = 604800 # 7 days
+        nginx['ssl_certificate'] = "/etc/cert/ssl/cert.pem"
+        nginx['ssl_certificate_key'] = "/etc/cert/ssl/privkey.pem"
         nginx['redirect_http_to_https'] = true
-        nginx['ssl_certificate'] = "/etc/cert/ssl/openlabs.io.crt"        
-        nginx['ssl_certificate_key'] = "/etc/cert/ssl/openlabs.io.key"
+        pages_external_url 'https://gitlabpage.jacobbaek.com/'
+        pages_nginx['enable'] = true
+        pages_nginx['listen_https'] = true
+        pages_nginx['redirect_http_to_https'] = true
+        pages_nginx['ssl_certificate'] = "/etc/cert/ssl/cert.pem"
+        pages_nginx['ssl_certificate_key'] = "/etc/cert/ssl/privkey.pem"
       GITLAB_ROOT_PASSWORD: root_git
       GITLAB_TIMEZONE: Asia/Seoul
         # Add any other gitlab.rb configuration here, each on its own line
     ports:
-      - '192.168.56.5:80:80'
-      - '192.168.56.5:443:443'
-      - '192.168.56.5:2222:22'
+      - '192.168.1.40:80:80'
+      - '192.168.1.40:443:443'
+      - '192.168.1.40:2222:22'
     volumes:
       - './gitlab/config:/etc/gitlab'
       - './gitlab/logs:/var/log/gitlab'
       - './gitlab/data:/var/opt/gitlab'
       - './gitlab/backups:/var/opt/gitlab/backups'
+      - './certs:/etc/cert/ssl'
+  gitlab-runner:
+    container_name: gitlab-runner
+    image: 'gitlab/gitlab-runner:latest'
+    restart: always
+    volumes:
+      - './gitlab-runner/config:/etc/gitlab-runner'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    extra_hosts:
+      - 'gitlab.jacobbaek.com:192.168.1.40'
+
+

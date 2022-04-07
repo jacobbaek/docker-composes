@@ -9,3 +9,16 @@
   ```
   gitlab-rake gitlab:backup:create
   ```
+# gitlab-runner
+gitlab-runner container does not have gitlab server information.
+so, have to run below command at the container shell.
+```
+REG_TOKEN=XXXXXXXXXXXXXXX
+gitlab-runner register -n "dind-gitlab-runner" \
+  --url https://gitlab.jacobbaek.com/ \
+  --registration-token REG_TOKEN \
+  --executor docker \
+  --description "dind-runner" \
+  --docker-image "docker:latest" \
+  --docker-privileged
+```
