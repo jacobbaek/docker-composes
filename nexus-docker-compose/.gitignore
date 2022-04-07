@@ -1,1 +1,3 @@
-ssl/*
+certs
+backup
+nexus-data
