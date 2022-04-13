@@ -2,19 +2,15 @@ version: '3.8'
 
 services:
   rabbitmq:
-    image: docker.io/bitnami/rabbitmq:3.9
-    user: "root"
-    privileged: true
+    container_name: rabbitmq
+    image: rabbitmq:3.9.14-management
     ports:
-    - '4369:4369'
-    - '5551:5551'
-    - '5552:5552'
-    - '5672:5672'
-    - '25672:25672'
-    - '15672:15672'
+      - '5672:5672'
+      - '15672:15672'
     environment:
-    - RABBITMQ_SECURE_PASSWORD=yes
-    - RABBITMQ_DEFAULT_USER=rabbit
-    - RABBITMQ_DEFAULT_PASS=rabbit_pass
+      RABBITMQ_ERLANG_COOKIE: secret-cookie           
+      RABBITMQ_DEFAULT_USER: rabbit
+      RABBITMQ_DEFAULT_PASS: rabbit_pass
     volumes:
-    - "./conf/rabbitmq-env.conf:/opt/bitnami/rabbitmq/etc/rabbitmq/rabbitmq-env.conf"
+      - './conf/:/etc/rabbitmq/'
+      - './data/:/var/lib/rabbitmq/'
