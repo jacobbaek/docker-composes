@@ -9,11 +9,15 @@ services:
       - '4567:4567'
       - '4568:4568'
     volumes:
-      - 'mariadb_galera_data:/bitnami/mariadb'
+      - './mariadb_galera_data:/bitnami/mariadb'
     environment:
-      # ALLOW_EMPTY_PASSWORD is recommended only for development.
-      - ALLOW_EMPTY_PASSWORD=yes
-      - MARIADB_GALERA_CLUSTER_ADDRESS=gcomm://
+      - ALLOW_EMPTY_PASSWORD=no
+      - MARIADB_GALERA_CLUSTER_BOOTSTRAP=yes
+      - MARIADB_EXTRA_FLAGS=--max-connect-errors=1000 --max_connections=155
+      - MARIADB_ROOT_PASSWORD=root123
+      - MARIADB_GALERA_CLUSTER_ADDRESS=gcomm://192.168.1.16
+      - MARIADB_GALERA_NODE_ADDRESS=192.168.1.16
+      - MARIADB_GALERA_MARIABACKUP_PASSWORD=backup123
     healthcheck:
       test: ['CMD', '/opt/bitnami/scripts/mariadb-galera/healthcheck.sh']
       interval: 15s
