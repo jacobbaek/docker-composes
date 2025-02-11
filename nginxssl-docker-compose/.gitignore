@@ -1,0 +1,3 @@
+cache/*
+ssl/*
+conf/nginx.conf
